@@ -54,6 +54,12 @@ function getEmployerInfo() {
                     name: 'school',
                     when:(answer) => answer.role === 'Intern'
                 },
+                {
+                    type: 'confirm',
+                    message: 'Do you have any more Employees to add?',
+                    name: 'moreEmployees',
+        
+                },
         ])
         .then((data) => {
             console.log(data)
@@ -61,38 +67,34 @@ function getEmployerInfo() {
 
                 if (data.role === 'Manager'){
                 const newManager = new Manager(data.name, data.id, data.email, data.OfficeNumber);
-                // employee = manager;
                 // console.log(manager)
                 employees.push(newManager) 
-                AddEmployees(data.add_more)
+                addEmployees(data.moreEmployees)
                 return; }
                 //render to page//
                 else if (data.role === 'Engineer'){
                     const newEngineer = new Engineer(data.name, data.id, data.email, data.github);
-                // employee = engineer;
                 // console.log(engineer)
                 employees.push(newEngineer) 
-                AddEmployees(data.add_more)
-                return; ;}
+                addEmployees(data.moreEmployees)
+                return; }
                 //render to page//
                 else if (data.role === 'Intern') {
                     const newIntern = new Intern(data.name, data.id, data.email, data.school);
-                // employee = intern;
                 // console.log(intern)
                 employees.push(newIntern) 
-                AddEmployees(ata.add_more)
-                return; ;}//render to page//
+                addEmployees(data.moreEmployees)
+                return; }//render to page//
 
-
-                console.log(employees)
+console.log(employees);
 
                 
 
 });
 }
 
-function AddEmployees(more) {
-    if (more){
+function addEmployees(more) {
+    if (more === true){
         // re-runs build function to create another employee object
         getEmployerInfo();
     } else {
